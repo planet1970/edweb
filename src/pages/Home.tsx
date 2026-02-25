@@ -27,18 +27,24 @@ const Home: React.FC = () => {
             }
         };
         fetchCategories();
-
-        // @ts-ignore
-        if (window.AOS) {
-            // @ts-ignore
-            window.AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true,
-                mirror: false
-            });
-        }
     }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            // @ts-ignore
+            if (window.AOS) {
+                // @ts-ignore
+                window.AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true,
+                    mirror: false
+                });
+                // @ts-ignore
+                window.AOS.refresh();
+            }
+        }
+    }, [loading]);
 
     if (loading) return <FullScreenLoader />;
 
