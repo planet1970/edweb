@@ -1,0 +1,5 @@
+/* Reset or minimal base if needed, but style.css is already comprehensive */
+body {
+  margin: 0;
+  padding: 0;
+}
