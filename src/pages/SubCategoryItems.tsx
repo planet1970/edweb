@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api, getImageUrl } from '../api';
 import type { SubCategory, Place, FoodPlace } from '../types';
+import FullScreenLoader from '../components/FullScreenLoader';
 
 const SubCategoryItems: React.FC = () => {
     const { subCategoryId } = useParams<{ subCategoryId: string }>();
@@ -43,15 +44,7 @@ const SubCategoryItems: React.FC = () => {
         window.scrollTo(0, 0);
     }, [subCategoryId]);
 
-    if (loading) {
-        return (
-            <div style={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#fff' }}>
-                <div className="spinner"></div>
-                <p style={{ marginLeft: '15px', color: '#666' }}>Yükleniyor...</p>
-            </div>
-        );
-    }
-
+    if (loading) return <FullScreenLoader />;
     return (
         <div className="subcategory-items-page" style={{ background: '#f8f9fa', minHeight: '100vh', opacity: 1, visibility: 'visible' }}>
             {/* Header Section */}

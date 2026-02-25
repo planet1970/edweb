@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api, getImageUrl } from '../api';
 import type { Category, SubCategory } from '../types';
+import FullScreenLoader from '../components/FullScreenLoader';
 
 const SubCategories: React.FC = () => {
     const { categoryId } = useParams<{ categoryId: string }>();
@@ -68,15 +69,7 @@ const SubCategories: React.FC = () => {
         window.scrollTo(0, 0);
     }, [categoryId]);
 
-    if (loading) {
-        return (
-            <div className="loading-state" style={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#fff' }}>
-                <div className="spinner"></div>
-                <p style={{ marginLeft: '15px', fontWeight: '500', color: '#666' }}>Veriler Hazırlanıyor...</p>
-            </div>
-        );
-    }
-
+    if (loading) return <FullScreenLoader />;
     if (error) {
         return (
             <div className="error-container" style={{ padding: '150px 20px', textAlign: 'center', minHeight: '80vh' }}>

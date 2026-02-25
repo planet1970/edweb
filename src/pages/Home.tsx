@@ -5,9 +5,11 @@ import SocialBar from '../components/SocialBar';
 import { api } from '../api';
 import type { Category } from '../types';
 import { Link } from 'react-router-dom';
+import FullScreenLoader from '../components/FullScreenLoader';
 
 const Home: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const getIconClass = (category: Category) => {
         return category.webIcon || 'fas fa-map-marked-alt';
@@ -20,6 +22,8 @@ const Home: React.FC = () => {
                 setCategories(response.data.filter(c => c.isActive).sort((a, b) => (a.order || 0) - (b.order || 0)));
             } catch (error) {
                 console.error("Kategoriler yüklenemedi:", error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchCategories();
@@ -35,6 +39,8 @@ const Home: React.FC = () => {
             });
         }
     }, []);
+
+    if (loading) return <FullScreenLoader />;
 
     return (
         <>

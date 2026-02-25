@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { api, getImageUrl } from '../api';
 import type { FoodPlace as FoodPlaceType } from '../types';
+import FullScreenLoader from '../components/FullScreenLoader';
 
 const FoodPlace: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -37,13 +38,7 @@ const FoodPlace: React.FC = () => {
         }
     }, [place]);
 
-    if (loading) {
-        return (
-            <div className="loading-state" style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div className="spinner"></div>
-            </div>
-        );
-    }
+    if (loading) return <FullScreenLoader />;
 
     if (!place) {
         return (
