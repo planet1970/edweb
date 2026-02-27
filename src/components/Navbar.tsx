@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { api, getImageUrl } from '../api';
 
+import WeatherWidget from './WeatherWidget';
+
 interface NavbarData {
     logoUrl?: string;
     title?: string;
@@ -84,6 +86,7 @@ const Navbar: React.FC = () => {
                         </ul>
 
                         <div className="nav-actions">
+                            <WeatherWidget />
                             <button
                                 id="themeToggle"
                                 className="theme-toggle"
