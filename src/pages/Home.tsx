@@ -7,9 +7,14 @@ import type { Category } from '../types';
 import { Link } from 'react-router-dom';
 import FullScreenLoader from '../components/FullScreenLoader';
 
+import FeaturedBusinesses from '../components/FeaturedBusinesses';
+import BusinessStories from '../components/BusinessStories';
+
 const Home: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
+    const showFeatured = true; // Set to false to hide the featured businesses section
+    const showStories = true; // Set to false to hide the business stories section
 
     const getIconClass = (category: Category) => {
         return category.webIcon || 'fas fa-map-marked-alt';
@@ -52,6 +57,7 @@ const Home: React.FC = () => {
         <>
             <Hero />
             <SocialBar />
+            {showStories && <BusinessStories />}
 
             {/* Browse By Category */}
             <section className="categories" id="categories">
@@ -270,6 +276,9 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Featured Businesses (Sponsored) - Can be toggled with showFeatured state */}
+            {showFeatured && <FeaturedBusinesses />}
 
             {/* Features Section (Interesting Facts) */}
             <section className="features" id="about">
