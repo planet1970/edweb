@@ -34,7 +34,7 @@ const SocialBar: React.FC = () => {
         <section className="social-bar" style={{ backgroundColor: colors?.bgColor || '#1A1A2E' }}>
             <div className="container">
                 <div className="social-bar-content">
-                    <div className="social-bar-left">
+                    <div className="social-bar-left hide-mobile">
                         {info.phone && (
                             <div className="social-bar-item">
                                 <i className="fas fa-phone-alt" style={{ color: colors?.iconColor || '#FFB627' }}></i>
@@ -55,7 +55,7 @@ const SocialBar: React.FC = () => {
                         )}
                     </div>
                     <div className="social-bar-right">
-                        <span className="social-bar-text">Bizi Takip Edin:</span>
+                        <span className="social-bar-text hide-mobile">Bizi Takip Edin:</span>
                         <div className="social-bar-links">
                             {info.facebook && <a href={info.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>}
                             {info.instagram && <a href={info.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>}

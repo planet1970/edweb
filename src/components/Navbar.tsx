@@ -18,6 +18,7 @@ const Navbar: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const [navbarData, setNavbarData] = useState<NavbarData | null>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -78,11 +79,14 @@ const Navbar: React.FC = () => {
                             </span>
                         </Link>
 
-                        <ul className="nav-menu" id="navMenu">
-                            <li><Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Ana Sayfa</Link></li>
-                            <li><a href="/#about" className="nav-link">Edirne</a></li>
-                            <li><a href="/#categories" className="nav-link">Kategoriler</a></li>
-                            <li><a href="/#contact" className="nav-link">İletişim</a></li>
+                        <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`} id="navMenu">
+                            <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
+                                <i className="fas fa-times"></i>
+                            </button>
+                            <li><Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}>Ana Sayfa</Link></li>
+                            <li><a href="/#about" className="nav-link" onClick={() => setIsMenuOpen(false)}>Edirne</a></li>
+                            <li><a href="/#categories" className="nav-link" onClick={() => setIsMenuOpen(false)}>Kategoriler</a></li>
+                            <li><a href="/#contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>İletişim</a></li>
                         </ul>
 
                         <div className="nav-actions">
@@ -94,6 +98,9 @@ const Navbar: React.FC = () => {
                                 onClick={toggleTheme}
                             >
                                 <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
+                            </button>
+                            <button className="mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
                             </button>
                         </div>
                     </div>

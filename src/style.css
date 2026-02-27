@@ -99,6 +99,16 @@ ul {
     text-align: center;
 }
 
+.hide-mobile {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
 /* ===================================
    Buttons
    =================================== */
@@ -327,6 +337,7 @@ ul {
     overflow: hidden;
     margin: 0;
     padding: 0;
+    z-index: 10;
 }
 
 .hero-slider {
@@ -1627,7 +1638,23 @@ section {
     display: flex;
     align-items: center;
     height: 100%;
+    gap: 15px;
 }
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 24px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.header.scrolled .mobile-toggle {
+    color: var(--text-main);
+}
+
 
 /* ===================================
    Featured Businesses Section
@@ -1850,10 +1877,13 @@ section {
 /* ===================================
    Business Stories Styles (Instagram Style)
    =================================== */
-.business-stories-wrapper {
+.business-stories-section {
     background: var(--bg-color);
-    padding: 20px 0;
     border-bottom: 1px solid var(--border-color);
+    padding: 20px 0;
+}
+
+.business-stories-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -1879,7 +1909,7 @@ section {
 }
 
 .story-item:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
 }
 
 .story-ring {
@@ -1888,10 +1918,10 @@ section {
     padding: 3px;
     border-radius: 50%;
     background: #e0e0e0;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: var(--transition);
 }
 
 .story-ring.new {
@@ -1924,37 +1954,44 @@ section {
     text-overflow: ellipsis;
 }
 
-/* ===================================
-   Responsive Design
-   =================================== */
-@media (max-width: 1024px) {
-    .destinations-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 
-    .destination-card.large {
-        grid-row: span 1;
-        height: 300px;
-    }
+/* Navbar Mobile Close */
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-main);
+    cursor: pointer;
+    display: none;
+}
 
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 768px) {
+    .close-menu {
+        display: block;
     }
 }
 
+
+/* ===================================
+   Responsive Design
+   =================================== */
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 300px;
+        width: 280px;
         height: 100vh;
         background: var(--card-bg);
         flex-direction: column;
-        padding: 100px 40px;
-        box-shadow: var(--shadow-lg);
+        padding: 100px 30px;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
         transition: var(--transition);
         align-items: flex-start;
+        z-index: 1000;
     }
 
     .nav-menu.active {
@@ -1962,82 +1999,36 @@ section {
     }
 
     .nav-link {
-        color: var(--text-main);
+        color: var(--text-main) !important;
         font-size: 18px;
+        margin-bottom: 5px;
+        width: 100%;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
     }
 
     .mobile-toggle {
-        display: flex;
+        display: block;
     }
 
     .social-bar-content {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-
-    .social-bar-left {
-        flex-direction: column;
-        gap: 15px;
+        justify-content: center;
     }
 
     .social-bar-right {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .hero-title {
-        font-size: 42px;
-    }
-
-    .hero-description {
-        font-size: 16px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
         width: 100%;
+        justify-content: center;
     }
 
-    .hero-buttons .btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .search-form {
+    .featured-grid {
         grid-template-columns: 1fr;
     }
 
-    .section-title {
-        font-size: 32px;
-    }
-
-    .tours-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .destinations-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
+    .featured-business-card {
+        margin-bottom: 20px;
     }
 }
+
 
 @media (max-width: 480px) {
     .hero-title {
@@ -2450,13 +2441,87 @@ section {
     margin-bottom: 30px;
 }
 
-/* Responsive Updates */
-@media (max-width: 768px) {
-    .subcat-grid {
-        grid-template-columns: 1fr;
+
+/* ===================================
+   Ad Popup Styles
+   =================================== */
+.ad-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.4s ease;
+}
+
+.ad-popup-container {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    overflow: visible;
+    /* To allow close button to sit on edge if needed */
+    animation: zoomInPopup 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ad-popup-close {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+
+.ad-popup-close:hover {
+    transform: rotate(90deg) scale(1.1);
+    background: var(--accent-color);
+}
+
+.ad-popup-content {
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.ad-popup-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.ad-popup-footer {
+    display: none;
+}
+
+
+@keyframes zoomInPopup {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
     }
 
-    .page-title {
-        font-size: 36px;
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
