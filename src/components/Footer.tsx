@@ -1,15 +1,52 @@
+import React, { useEffect, useState } from 'react';
+import { api, getImageUrl } from '../api';
 
-import React from 'react';
+interface NavbarData {
+    logoUrl?: string;
+    title?: string;
+    titleColor?: string;
+    fontFamily?: string;
+    fontSize?: number;
+    bgColor?: string;
+    iconColor?: string;
+}
 
 const Footer: React.FC = () => {
+    const [footerData, setFooterData] = useState<NavbarData | null>(null);
+
+    useEffect(() => {
+        const fetchFooterData = async () => {
+            try {
+                const response = await api.get('/web-home/navbar');
+                setFooterData(response.data);
+            } catch (error) {
+                console.error("Footer data fetch error:", error);
+            }
+        };
+        fetchFooterData();
+    }, []);
+
     return (
         <footer className="footer">
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-col">
                         <div className="footer-logo">
-                            <i className="fas fa-landmark"></i>
-                            <span>Edirne Rehberi</span>
+                            {footerData?.logoUrl ? (
+                                <img src={getImageUrl(footerData.logoUrl)} alt="Logo" style={{ height: '40px', width: 'auto' }} />
+                            ) : (
+                                <i className="fas fa-landmark" style={{ color: footerData?.iconColor || 'var(--primary-color)' }}></i>
+                            )}
+                            <span
+                                style={{
+                                    color: footerData?.titleColor ?? '#ffffff',
+                                    fontFamily: footerData?.fontFamily ?? undefined,
+                                    fontSize: footerData?.fontSize ? `${footerData.fontSize}px` : undefined,
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                {footerData?.title || 'Edirne Rehberi'}
+                            </span>
                         </div>
                         <p>Edirne'nin tarihi, kültürel ve eşsiz lezzetlerini keşfetmeniz için hazırlanan en kapsamlı şehir
                             rehberi. Osmanlı'nın eski başkentini bizimle tanıyın.</p>
@@ -55,7 +92,7 @@ const Footer: React.FC = () => {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} Edirne Rehberi. Tüm hakları saklıdır.</p>
+                    <p>&copy; {new Date().getFullYear()} {footerData?.title || 'Edirne Rehberi'}. Tüm hakları saklıdır.</p>
                     <div className="footer-links">
                         <a href="#">Gizlilik Politikası</a>
                         <a href="#">Kullanım Şartları</a>
