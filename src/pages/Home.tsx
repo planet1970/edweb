@@ -13,6 +13,7 @@ import PopularPlaces from '../components/PopularPlaces';
 import AboutEdirne from '../components/AboutEdirne';
 import ContactSection from '../components/ContactSection';
 import AdPopup from '../components/AdPopup';
+import NotificationToast from '../components/NotificationToast';
 
 const Home: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -28,7 +29,8 @@ const Home: React.FC = () => {
         featured: true,
         about: true,
         contact: true,
-        adPopup: true
+        adPopup: true,
+        notification: true
     });
 
     useEffect(() => {
@@ -75,6 +77,7 @@ const Home: React.FC = () => {
             {visibleSections.about && <AboutEdirne />}
             {visibleSections.contact && <ContactSection />}
             {visibleSections.adPopup && <AdPopup />}
+            {visibleSections.notification && <NotificationToast />}
         </>
     );
 };
