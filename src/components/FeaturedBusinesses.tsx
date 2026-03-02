@@ -1,40 +1,26 @@
-
-import React from 'react';
-
-const featuredData = [
-    {
-        id: 1,
-        name: "Lalezar Restoran",
-        category: "Yeme - İçme",
-        image: "/images/featured/ciger.png",
-        discount: "%10 İndirim",
-        description: "Edirne'nin en meşhur yaprak ciğeri ve Osmanlı mutfağı lezzetleri.",
-        rating: 4.9,
-        link: "#"
-    },
-    {
-        id: 2,
-        name: "Hilly Hotel",
-        category: "Konaklama",
-        image: "/images/featured/hotel.png",
-        discount: "Erken Rezervasyon",
-        description: "Şehrin kalbinde, modern konfor ve tarihi dokunun buluşma noktası.",
-        rating: 4.8,
-        link: "#"
-    },
-    {
-        id: 3,
-        name: "Meriç Kenarı Kahve",
-        category: "Cafe & Bar",
-        image: "/images/featured/cafe.png",
-        discount: "2. Kahve %50",
-        description: "Meriç Nehri kıyısında, huzurlu bir atmosfer ve eşsiz manzara.",
-        rating: 4.7,
-        link: "#"
-    }
-];
+import React, { useEffect, useState } from 'react';
+import { api, getImageUrl } from '../api';
 
 const FeaturedBusinesses: React.FC = () => {
+    const [featuredData, setFeaturedData] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchFeatured = async () => {
+            try {
+                const response = await api.get('/web-home/ads/featured');
+                setFeaturedData(response.data);
+            } catch (error) {
+                console.error("Öne çıkanlar yüklenemedi:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFeatured();
+    }, []);
+
+    if (loading || featuredData.length === 0) return null;
+
     return (
         <section className="featured-businesses-section">
             <div className="container">
@@ -46,9 +32,9 @@ const FeaturedBusinesses: React.FC = () => {
 
                 <div className="featured-grid">
                     {featuredData.map((item) => (
-                        <div key={item.id} className="featured-business-card" data-aos="fade-up" data-aos-delay={item.id * 100}>
+                        <div key={item.id} className="featured-business-card" data-aos="fade-up" data-aos-delay={100}>
                             <div className="card-image-wrapper">
-                                <img src={item.image} alt={item.name} />
+                                <img src={getImageUrl(item.imageUrl)} alt={item.title} />
                                 <div className="card-badges">
                                     <span className="badge-featured">Sponsorlu</span>
                                     {item.discount && <span className="badge-promo">{item.discount}</span>}
@@ -65,22 +51,11 @@ const FeaturedBusinesses: React.FC = () => {
                                         <span>{item.rating}</span>
                                     </div>
                                 </div>
-                                <h3>{item.name}</h3>
+                                <h3>{item.title}</h3>
                                 <p>{item.description}</p>
                             </div>
                         </div>
                     ))}
-                </div>
-
-                {/* Optional: Small Sponsor Bar */}
-                <div className="sponsor-bar" data-aos="fade-up">
-                    <span className="sponsor-title">İş Ortaklarımız:</span>
-                    <div className="sponsor-logos">
-                        <div className="sponsor-logo">LOGO 1</div>
-                        <div className="sponsor-logo">LOGO 2</div>
-                        <div className="sponsor-logo">LOGO 3</div>
-                        <div className="sponsor-logo">LOGO 4</div>
-                    </div>
                 </div>
             </div>
         </section>
