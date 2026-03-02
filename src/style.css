@@ -1505,6 +1505,160 @@ section {
 }
 
 /* ===================================
+   Footer Responsive
+   =================================== */
+@media (max-width: 992px) {
+    .footer {
+        padding: 60px 0 0;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-col:first-child {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 50px 0 0;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        margin-bottom: 35px;
+    }
+
+    .footer-col:first-child {
+        grid-column: span 1;
+    }
+
+    .footer-logo {
+        font-size: 22px;
+    }
+
+    .footer-logo i {
+        font-size: 26px;
+    }
+
+    .footer-col p {
+        font-size: 14px;
+    }
+
+    .footer-social {
+        flex-wrap: wrap;
+    }
+
+    .footer-col h3 {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .newsletter-form {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .newsletter-form input {
+        padding: 11px 16px;
+        font-size: 14px;
+    }
+
+    .newsletter-form button {
+        width: 46px;
+        height: 46px;
+        flex-shrink: 0;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 25px 0;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 20px;
+    }
+
+    .footer-links a {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 40px 0 0;
+    }
+
+    .footer-content {
+        gap: 28px;
+        margin-bottom: 28px;
+    }
+
+    .footer-logo {
+        font-size: 20px;
+    }
+
+    .footer-col h3 {
+        font-size: 16px;
+        margin-bottom: 14px;
+    }
+
+    .footer-col p {
+        font-size: 13px;
+        margin-bottom: 18px;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+        font-size: 14px;
+    }
+
+    .footer-social a {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .newsletter-form input {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .newsletter-form button {
+        width: 42px;
+        height: 42px;
+    }
+
+    .footer-bottom {
+        padding: 20px 0;
+        gap: 12px;
+    }
+
+    .footer-bottom p {
+        font-size: 13px;
+    }
+
+    .footer-links {
+        gap: 10px 16px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+}
+
+/* ===================================
    Weather Widget Styles
    =================================== */
 .weather-widget-container {
