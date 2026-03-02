@@ -5,13 +5,13 @@ const PopularPlaces: React.FC = () => {
     return (
         <section className="tours" id="tours">
             <div className="container">
-                <div className="section-header" data-aos="fade-up">
+                <div className="section-header">
                     <span className="section-subtitle">Görülecek Yerler</span>
                     <h2 className="section-title">Popüler Mekanlar</h2>
                 </div>
 
                 <div className="tours-grid">
-                    <div className="tour-card" data-aos="fade-up" data-aos-delay="100">
+                    <div className="tour-card">
                         <div className="tour-image">
                             <img src="/images/populer/selimiye.png" alt="Selimiye Camii" />
                             <div className="tour-badge popular">UNESCO</div>
@@ -37,7 +37,7 @@ const PopularPlaces: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="tour-card" data-aos="fade-up" data-aos-delay="200">
+                    <div className="tour-card">
                         <div className="tour-image">
                             <img src="/images/populer/eskicamii.png" alt="Eski Cami" />
                             <div className="tour-overlay">
@@ -64,9 +64,9 @@ const PopularPlaces: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="tour-card" data-aos="fade-up" data-aos-delay="300">
+                    <div className="tour-card">
                         <div className="tour-image">
-                            <img src="images/populer/ucserefeli.png" alt="Üç Şerefeli Cami" />
+                            <img src="/images/populer/ucserefeli.png" alt="Üç Şerefeli Cami" />
                             <div className="tour-overlay">
                                 <a href="#" className="btn btn-white">Detayları Gör</a>
                             </div>
@@ -91,9 +91,9 @@ const PopularPlaces: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="tour-card" data-aos="fade-up" data-aos-delay="100">
+                    <div className="tour-card">
                         <div className="tour-image">
-                            <img src="images/populer/sarayici.png" alt="Tarihi Kırkpınar Meydanı" />
+                            <img src="/images/populer/sarayici.png" alt="Tarihi Kırkpınar Meydanı" />
                             <div className="tour-badge">Tarihi</div>
                             <div className="tour-overlay">
                                 <a href="#" className="btn btn-white">Detayları Gör</a>
@@ -119,9 +119,9 @@ const PopularPlaces: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="tour-card" data-aos="fade-up" data-aos-delay="200">
+                    <div className="tour-card">
                         <div className="tour-image">
-                            <img src="images/populer/meric.png" alt="Meriç Nehri" />
+                            <img src="/images/populer/meric.png" alt="Meriç Nehri" />
                             <div className="tour-overlay">
                                 <a href="#" className="btn btn-white">Detayları Gör</a>
                             </div>
@@ -146,9 +146,9 @@ const PopularPlaces: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="tour-card" data-aos="fade-up" data-aos-delay="300">
+                    <div className="tour-card">
                         <div className="tour-image">
-                            <img src="images/populer/edirnesarayi.png" alt="Edirne Sarayı" />
+                            <img src="/images/populer/edirnesarayi.png" alt="Edirne Sarayı" />
                             <div className="tour-badge">Müze</div>
                             <div className="tour-overlay">
                                 <a href="#" className="btn btn-white">Detayları Gör</a>
@@ -175,7 +175,7 @@ const PopularPlaces: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="text-center" data-aos="fade-up">
+                <div className="text-center">
                     <a href="#" className="btn btn-primary btn-lg">Tüm Mekanları Görüntüle</a>
                 </div>
             </div>

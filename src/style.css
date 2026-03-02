@@ -3925,3 +3925,101 @@ section {
     justify-content: center;
     margin-right: 8px;
 }
+
+/* ===================================
+   Ad Banner Section
+   =================================== */
+.ad-banner-section {
+    padding: 30px 0;
+    background-color: transparent;
+}
+
+.ad-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.ad-box {
+    width: 100%;
+    height: 160px;
+    /* Sabit yükseklik */
+}
+
+.ad-box-inner {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+[data-theme="dark"] .ad-box-inner {
+    background: #1c1c21;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.ad-banner-wrapper {
+    position: relative;
+    padding: 0;
+    /* Görselin tam dolması için padding sıfırlandı */
+}
+
+.ad-banner-inner {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 20px;
+}
+
+.ad-banner-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.ad-banner-desc {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.ad-content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ad-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ad-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Yatayı doldurur, fazlalığı ortalı keser */
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .ad-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
