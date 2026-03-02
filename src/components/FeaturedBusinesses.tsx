@@ -9,7 +9,7 @@ const FeaturedBusinesses: React.FC = () => {
         const fetchFeatured = async () => {
             try {
                 const response = await api.get('/web-home/ads/featured');
-                setFeaturedData(response.data);
+                setFeaturedData(Array.isArray(response.data) ? response.data.filter((f: any) => f.isActive) : []);
             } catch (error) {
                 console.error("Öne çıkanlar yüklenemedi:", error);
             } finally {

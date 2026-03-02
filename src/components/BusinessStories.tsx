@@ -9,7 +9,7 @@ const BusinessStories: React.FC = () => {
         const fetchStories = async () => {
             try {
                 const response = await api.get('/web-home/ads/story');
-                setStories(response.data);
+                setStories(Array.isArray(response.data) ? response.data.filter((s: any) => s.isActive) : []);
             } catch (error) {
                 console.error("Hikayeler yüklenemedi:", error);
             } finally {
