@@ -58,10 +58,12 @@ const FeaturedBusinesses: React.FC = () => {
                                 <div className="card-content">
                                     <div className="card-top">
                                         <span className="card-category">{item.category}</span>
-                                        <div className="card-rating">
-                                            <i className="fas fa-star"></i>
-                                            <span>{item.rating || '5.0'}</span>
-                                        </div>
+                                        {item.rating && item.rating > 0 && (
+                                            <div className="card-rating">
+                                                <i className="fas fa-star"></i>
+                                                <span>{item.rating}</span>
+                                            </div>
+                                        )}
                                     </div>
                                     <h3 className="text-gray-900">{item.title}</h3>
                                     <p>{item.description}</p>

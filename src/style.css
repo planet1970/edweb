@@ -1512,6 +1512,11 @@ section {
     background: var(--bg-light);
 }
 
+.ad-banner-section .container {
+    display: flex;
+    justify-content: center;
+}
+
 .ad-wrapper {
     display: flex;
     gap: 20px;
@@ -1520,15 +1525,15 @@ section {
 }
 
 .ad-box {
-    width: 485px !important;
-    height: 90px !important;
-    flex: 0 0 485px !important;
+    width: 590px !important;
+    height: 160px !important;
+    flex: 0 0 590px !important;
     overflow: hidden;
 }
 
 .ad-banner-wrapper {
-    width: 485px;
-    height: 90px;
+    width: 590px;
+    height: 160px;
     margin: 0 auto;
     border: 2px dashed rgba(0, 0, 0, 0.18);
     border-radius: 12px;
@@ -1611,13 +1616,26 @@ section {
 }
 
 @media (max-width: 768px) {
-
-    .ad-box,
-    .ad-banner-wrapper {
+    .ad-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
         width: 100%;
-        max-width: 485px;
-        height: auto;
-        aspect-ratio: 485 / 90;
+        padding: 0 15px;
+    }
+
+    .ad-box {
+        width: 100% !important;
+        max-width: 590px;
+        height: auto !important;
+        aspect-ratio: 590 / 160;
+        flex: none !important;
+    }
+
+    .ad-banner-wrapper {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 590 / 160;
     }
 
     .ad-banner-tag {
@@ -4038,8 +4056,8 @@ section {
 }
 
 .ad-content-wrapper {
-    width: 485px;
-    height: 90px;
+    width: 590px;
+    height: 160px;
     display: flex;
     justify-content: center;
     align-items: center;

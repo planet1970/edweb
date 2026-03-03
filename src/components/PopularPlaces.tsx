@@ -108,7 +108,7 @@ const PopularPlaces: React.FC = () => {
                                 <div className="card-image-wrapper">
                                     <img src={place.imageUrl.startsWith('/images') ? place.imageUrl : getImageUrl(place.imageUrl)} alt={place.title} />
                                     <div className="card-badges">
-                                        <span className="badge-featured">{place.mainCategory || 'Mekan'}</span>
+                                        <span className="badge-featured">{place.mainCategory || place.badge || 'Mekan'}</span>
                                     </div>
                                     <div className="card-overlay">
                                         <span className="btn btn-outline-white">İncele</span>
@@ -116,11 +116,13 @@ const PopularPlaces: React.FC = () => {
                                 </div>
                                 <div className="card-content">
                                     <div className="card-top">
-                                        <span className="card-category">{place.category || 'Mekan Bilgisi'}</span>
-                                        <div className="card-rating">
-                                            <i className="fas fa-star"></i>
-                                            <span>{place.rating || '5.0'}</span>
-                                        </div>
+                                        <span className="card-category">{place.category || place.location || 'Mekan Bilgisi'}</span>
+                                        {place.rating > 0 && (
+                                            <div className="card-rating">
+                                                <i className="fas fa-star"></i>
+                                                <span>{place.rating}</span>
+                                            </div>
+                                        )}
                                     </div>
                                     <h3 className="text-gray-900" style={{ fontSize: '22px', marginBottom: '10px', fontWeight: 'bold' }}>{place.title}</h3>
                                     <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>{place.description}</p>
