@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api, getImageUrl } from '../api';
+import type { WebSocialInfo } from '../types';
 
 interface NavbarData {
     logoUrl?: string;
@@ -13,21 +14,26 @@ interface NavbarData {
 
 const Footer: React.FC = () => {
     const [footerData, setFooterData] = useState<NavbarData | null>(null);
+    const [socialInfo, setSocialInfo] = useState<WebSocialInfo | null>(null);
 
     useEffect(() => {
-        const fetchFooterData = async () => {
+        const fetchData = async () => {
             try {
-                const response = await api.get('/web-home/navbar');
-                setFooterData(response.data);
+                const [navbarRes, socialRes] = await Promise.all([
+                    api.get('/web-home/navbar'),
+                    api.get('/web-home/social')
+                ]);
+                setFooterData(navbarRes.data);
+                setSocialInfo(socialRes.data);
             } catch (error) {
                 console.error("Footer data fetch error:", error);
             }
         };
-        fetchFooterData();
+        fetchData();
     }, []);
 
     return (
-        <footer className="footer">
+        <footer className="footer" style={{ backgroundColor: footerData?.bgColor || undefined }}>
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-col">
@@ -51,11 +57,10 @@ const Footer: React.FC = () => {
                         <p>Edirne'nin tarihi, kültürel ve eşsiz lezzetlerini keşfetmeniz için hazırlanan en kapsamlı şehir
                             rehberi. Osmanlı'nın eski başkentini bizimle tanıyın.</p>
                         <div className="footer-social">
-                            <a href="#"><i className="fab fa-facebook-f"></i></a>
-                            <a href="#"><i className="fab fa-instagram"></i></a>
-                            <a href="#"><i className="fab fa-twitter"></i></a>
-                            <a href="#"><i className="fab fa-youtube"></i></a>
-                            <a href="#"><i className="fab fa-linkedin-in"></i></a>
+                            {socialInfo?.facebook && <a href={socialInfo.facebook} target="_blank" rel="noreferrer"><i className="fab fa-facebook-f"></i></a>}
+                            {socialInfo?.instagram && <a href={socialInfo.instagram} target="_blank" rel="noreferrer"><i className="fab fa-instagram"></i></a>}
+                            {socialInfo?.twitter && <a href={socialInfo.twitter} target="_blank" rel="noreferrer"><i className="fab fa-twitter"></i></a>}
+                            {socialInfo?.youtube && <a href={socialInfo.youtube} target="_blank" rel="noreferrer"><i className="fab fa-youtube"></i></a>}
                         </div>
                     </div>
 

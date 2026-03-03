@@ -74,8 +74,8 @@ const Home: React.FC = () => {
             {visibleSections.stories && <BusinessStories />}
             <AdBanner />
             {visibleSections.categories && <HomeCategories categories={categories} />}
-            {visibleSections.popularPlaces && <PopularPlaces />}
             {visibleSections.featured && <FeaturedBusinesses />}
+            {visibleSections.popularPlaces && <PopularPlaces />}
             {visibleSections.about && <AboutEdirne />}
             {visibleSections.contact && <ContactSection />}
             {visibleSections.adPopup && <AdPopup />}

@@ -59,9 +59,8 @@ const AdBanner: React.FC = () => {
                                 <div className="ad-banner-inner">
                                     <span className="ad-banner-tag">
                                         <i className="fas fa-ad"></i>
-                                        Google Ads
+                                        Sponsorlu Alan
                                     </span>
-                                    <p className="ad-banner-desc">Sponsorlu Alan</p>
                                 </div>
                             )}
                         </div>
@@ -76,9 +75,8 @@ const AdBanner: React.FC = () => {
                                 <div className="ad-banner-inner">
                                     <span className="ad-banner-tag">
                                         <i className="fas fa-ad"></i>
-                                        Google Ads
+                                        Sponsorlu Alan
                                     </span>
-                                    <p className="ad-banner-desc">Sponsorlu Alan</p>
                                 </div>
                             )}
                         </div>
