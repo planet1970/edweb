@@ -1,7 +1,37 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { api } from '../api';
 
 const ContactSection: React.FC = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [message, setMessage] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('loading');
+        try {
+            await api.post('/contact-messages', formData);
+            setStatus('success');
+            setMessage('Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.');
+            setFormData({ name: '', email: '', subject: '', message: '' });
+        } catch (error) {
+            console.error('Error sending message:', error);
+            setStatus('error');
+            setMessage('Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+        }
+    };
+
     return (
         <section className="contact" id="contact">
             <div className="container">
@@ -60,30 +90,71 @@ const ContactSection: React.FC = () => {
                         </div>
                     </div>
 
-                    <form className="contact-form" data-aos="fade-left">
+                    <form className="contact-form" data-aos="fade-left" onSubmit={handleSubmit}>
                         <div className="form-row">
                             <div className="form-group">
-                                <input type="text" placeholder="Adınız *" required />
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="Adınız *"
+                                    required
+                                />
                             </div>
                             <div className="form-group">
-                                <input type="email" placeholder="E-posta *" required />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="E-posta *"
+                                    required
+                                />
                             </div>
                         </div>
 
                         <div className="form-row">
-                            <div className="form-group">
-                                <input type="tel" placeholder="Telefon *" required />
-                            </div>
-                            <div className="form-group">
-                                <input type="text" placeholder="Konu" />
+                            <div className="form-group" style={{ width: '100%' }}>
+                                <input
+                                    type="text"
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    placeholder="Konu"
+                                />
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <textarea rows={6} placeholder="Mesajınız *" required></textarea>
+                            <textarea
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                rows={6}
+                                placeholder="Mesajınız *"
+                                required
+                            ></textarea>
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-lg">Mesaj Gönder</button>
+                        <button
+                            type="submit"
+                            className="btn btn-primary btn-lg"
+                            disabled={status === 'loading'}
+                        >
+                            {status === 'loading' ? 'Gönderiliyor...' : 'Mesaj Gönder'}
+                        </button>
+
+                        {status === 'success' && (
+                            <div className="form-message success" style={{ color: '#28a745', marginTop: '15px' }}>
+                                {message}
+                            </div>
+                        )}
+                        {status === 'error' && (
+                            <div className="form-message error" style={{ color: '#dc3545', marginTop: '15px' }}>
+                                {message}
+                            </div>
+                        )}
                     </form>
                 </div>
             </div>

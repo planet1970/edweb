@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import { visitorService } from './visitorService';
 import { Toaster } from 'react-hot-toast';
+import NotificationToast from './components/NotificationToast';
 import './style.css';
 
 const AppContent: React.FC = () => {
@@ -85,6 +86,7 @@ const AppContent: React.FC = () => {
         }}
       />
       <Navbar />
+      <NotificationToast />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />

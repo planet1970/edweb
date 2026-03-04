@@ -30,12 +30,23 @@ export const visitorService = {
                 if (response.data.email) {
                     localStorage.setItem('edn_user_email', response.data.email);
                 }
+                if (response.data.visitCount !== undefined) {
+                    localStorage.setItem('edn_visit_count', response.data.visitCount.toString());
+                }
+
+                // Dispatch event so Navbar and other components can update
+                window.dispatchEvent(new CustomEvent('visitorUpdated', { detail: response.data }));
             }
             return response.data;
         } catch (error) {
             console.error('Visitor tracking failed:', error);
             return null;
         }
+    },
+
+    getVisitCount(): number {
+        const count = localStorage.getItem('edn_visit_count');
+        return count ? parseInt(count, 10) : 0;
     },
 
     getUsername(): string | null {

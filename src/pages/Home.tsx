@@ -13,7 +13,6 @@ import PopularPlaces from '../components/PopularPlaces';
 import AboutEdirne from '../components/AboutEdirne';
 import ContactSection from '../components/ContactSection';
 import AdPopup from '../components/AdPopup';
-import NotificationToast from '../components/NotificationToast';
 import AdBanner from '../components/AdBanner';
 
 const Home: React.FC = () => {
@@ -79,7 +78,6 @@ const Home: React.FC = () => {
             {visibleSections.about && <AboutEdirne />}
             {visibleSections.contact && <ContactSection />}
             {visibleSections.adPopup && <AdPopup />}
-            {visibleSections.notification && <NotificationToast />}
         </>
     );
 };

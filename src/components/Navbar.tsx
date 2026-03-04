@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { api, getImageUrl } from '../api';
@@ -28,6 +29,7 @@ const Navbar: React.FC = () => {
     const userMenuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        // Initial load
         setVisitorName(visitorService.getUsername());
         setFullName(visitorService.getFullName());
         setVisitorEmail(visitorService.getEmail());
@@ -43,13 +45,26 @@ const Navbar: React.FC = () => {
         };
         fetchNavbarData();
 
+        const handleVisitorUpdate = () => {
+            setVisitorName(visitorService.getUsername());
+            setFullName(visitorService.getFullName());
+            setVisitorEmail(visitorService.getEmail());
+            setUserImage(visitorService.getUserImage());
+        };
+
+        window.addEventListener('visitorUpdated', handleVisitorUpdate);
+
         const handleClickOutside = (event: MouseEvent) => {
             if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
                 setIsUserMenuOpen(false);
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            window.removeEventListener('visitorUpdated', handleVisitorUpdate);
+        };
     }, []);
 
     useEffect(() => {

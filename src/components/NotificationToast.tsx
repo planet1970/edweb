@@ -21,20 +21,38 @@ const NotificationToast: React.FC<NotificationProps> = ({
     const [displayMessage, setDisplayMessage] = useState(initialMessage || "Ramazan Çarşısı etkinliklerimizi kaçırmayın!");
 
     useEffect(() => {
-        // Show after initial delay
-        const showTimer = setTimeout(() => {
+        const checkAndShow = () => {
             const hasSeenSession = sessionStorage.getItem('hasSeenGlobalNotification');
-            if (!hasSeenSession) {
+            if (!hasSeenSession && !isVisible) {
                 const username = visitorService.getUsername();
                 if (username) {
-                    setDisplayMessage(`Hoş geldin ${username}! Seni tekrar görmek güzel.`);
+                    const visitCount = visitorService.getVisitCount();
+                    if (visitCount <= 1) {
+                        setDisplayMessage(`Hoş geldin ${username}! Edirne Rehberi'ne ilk ziyaretin için teşekkürler.`);
+                    } else {
+                        setDisplayMessage(`Hoş geldin ${username}! Seni tekrar görmek güzel.`);
+                    }
+                    setIsVisible(true);
                 }
-                setIsVisible(true);
             }
-        }, delay);
+        };
 
-        return () => clearTimeout(showTimer);
-    }, [delay, initialMessage]);
+        // Show after initial delay
+        const showTimer = setTimeout(checkAndShow, delay);
+
+        // Also listen for immediate updates (for first time visitors)
+        const handleUpdate = () => {
+            // Short delay after update to look better
+            setTimeout(checkAndShow, 1000);
+        };
+
+        window.addEventListener('visitorUpdated', handleUpdate);
+
+        return () => {
+            clearTimeout(showTimer);
+            window.removeEventListener('visitorUpdated', handleUpdate);
+        };
+    }, [delay, isVisible]);
 
     useEffect(() => {
         if (isVisible) {
