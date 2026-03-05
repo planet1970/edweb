@@ -16,6 +16,7 @@ export interface WebSocialInfo {
     phone?: string;
     email?: string;
     address?: string;
+    workingHours?: string;
     facebook?: string;
     instagram?: string;
     twitter?: string;

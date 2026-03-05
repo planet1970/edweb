@@ -1,8 +1,33 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 
 const ContactSection: React.FC = () => {
+    const [contactInfo, setContactInfo] = useState({
+        phone: '',
+        email: '',
+        address: '',
+        workingHours: '',
+        facebook: '',
+        instagram: '',
+        twitter: '',
+        youtube: ''
+    });
+
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            try {
+                const response = await api.get('/web-home/social');
+                if (response.data) {
+                    setContactInfo(response.data);
+                }
+            } catch (error) {
+                console.error('İletişim bilgileri alınamadı:', error);
+            }
+        };
+        fetchContactInfo();
+    }, []);
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -48,7 +73,7 @@ const ContactSection: React.FC = () => {
                             </div>
                             <div>
                                 <h4>Adres</h4>
-                                <p>Meydan Mah. Mimar Sinan Cad.<br />Merkez, Edirne</p>
+                                <p style={{ whiteSpace: 'pre-wrap' }}>{contactInfo.address || 'Adres bilgisi girilmemiş'}</p>
                             </div>
                         </div>
 
@@ -58,7 +83,7 @@ const ContactSection: React.FC = () => {
                             </div>
                             <div>
                                 <h4>Telefon</h4>
-                                <p>+90 284 225 18 26<br />+90 532 123 45 67</p>
+                                <p style={{ whiteSpace: 'pre-wrap' }}>{contactInfo.phone || 'Telefon bilgisi girilmemiş'}</p>
                             </div>
                         </div>
 
@@ -68,7 +93,7 @@ const ContactSection: React.FC = () => {
                             </div>
                             <div>
                                 <h4>E-posta</h4>
-                                <p>info@edirnerehberi.com<br />destek@edirnerehberi.com</p>
+                                <p style={{ whiteSpace: 'pre-wrap' }}>{contactInfo.email || 'E-posta bilgisi girilmemiş'}</p>
                             </div>
                         </div>
 
@@ -78,15 +103,15 @@ const ContactSection: React.FC = () => {
                             </div>
                             <div>
                                 <h4>Çalışma Saatleri</h4>
-                                <p>Pazartesi - Cuma: 09:00 - 18:00<br />Cumartesi: 10:00 - 16:00</p>
+                                <p style={{ whiteSpace: 'pre-wrap' }}>{contactInfo.workingHours || 'Çalışma saati bilgisi girilmemiş'}</p>
                             </div>
                         </div>
 
                         <div className="social-links">
-                            <a href="#"><i className="fab fa-facebook-f"></i></a>
-                            <a href="#"><i className="fab fa-instagram"></i></a>
-                            <a href="#"><i className="fab fa-twitter"></i></a>
-                            <a href="#"><i className="fab fa-youtube"></i></a>
+                            {contactInfo.facebook && <a href={contactInfo.facebook} target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>}
+                            {contactInfo.instagram && <a href={contactInfo.instagram} target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>}
+                            {contactInfo.twitter && <a href={contactInfo.twitter} target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a>}
+                            {contactInfo.youtube && <a href={contactInfo.youtube} target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>}
                         </div>
                     </div>
 
