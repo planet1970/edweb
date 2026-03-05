@@ -101,14 +101,14 @@ const Navbar: React.FC = () => {
                         {/* Logo */}
                         <Link to="/" className="logo">
                             {navbarData?.logoUrl ? (
-                                <img src={getImageUrl(navbarData.logoUrl)} alt="Logo" style={{ height: '40px', width: 'auto' }} />
+                                <img src={getImageUrl(navbarData.logoUrl)} alt="Logo" className="logo-img" />
                             ) : (
                                 <i className="fas fa-landmark" style={{ color: !scrolled ? navbarData?.iconColor : undefined }}></i>
                             )}
                             <span style={{
                                 color: navbarData?.titleColor ?? (!scrolled ? '#ffffff' : undefined),
                                 fontFamily: navbarData?.fontFamily ?? undefined,
-                                fontSize: navbarData?.fontSize ? `${navbarData.fontSize}px` : undefined,
+                                fontSize: navbarData?.fontSize ? `${navbarData.fontSize}px` : '24px',
                                 fontWeight: 'bold'
                             }}>
                                 {navbarData?.title || 'Edirne Rehberi'}
