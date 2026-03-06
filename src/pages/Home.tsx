@@ -14,6 +14,7 @@ import AboutEdirne from '../components/AboutEdirne';
 import ContactSection from '../components/ContactSection';
 import AdPopup from '../components/AdPopup';
 import AdBanner from '../components/AdBanner';
+import NewsTicker from '../components/NewsTicker';
 
 const Home: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -30,7 +31,8 @@ const Home: React.FC = () => {
         about: true,
         contact: true,
         adPopup: true,
-        notification: true
+        notification: true,
+        news: true
     });
 
     useEffect(() => {
@@ -70,6 +72,7 @@ const Home: React.FC = () => {
         <>
             {visibleSections.hero && <Hero />}
             {visibleSections.socialBar && <SocialBar />}
+            {visibleSections.news && <NewsTicker />}
             {visibleSections.stories && <BusinessStories />}
             <AdBanner />
             {visibleSections.categories && <HomeCategories categories={categories} />}

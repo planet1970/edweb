@@ -3,3 +3,248 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100vw);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.nt-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+  height: 3.25rem !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  background-color: #ffffff !important;
+  border-top: 1px solid #f3f4f6 !important;
+  border-bottom: 1px solid #f973161a !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05) !important;
+}
+
+.nt-label {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  background-color: #fff9f5 !important;
+  /* Softest cream orange */
+  padding: 0 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  z-index: 50 !important;
+  font-weight: 800 !important;
+  color: #f97316 !important;
+  /* Pure orange text */
+  font-size: 0.75rem !important;
+  letter-spacing: 0.05em !important;
+  box-shadow: 5px 0 15px -3px rgba(0, 0, 0, 0.05) !important;
+  text-transform: uppercase !important;
+  border-right: 1px solid #f9731622 !important;
+}
+
+.nt-label::after {
+  content: "" !important;
+  position: absolute !important;
+  right: -1.5rem !important;
+  width: 2rem !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, #fff9f5 0%, transparent 100%) !important;
+  pointer-events: none !important;
+}
+
+.nt-container {
+  display: flex !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  position: relative !important;
+  height: 100% !important;
+}
+
+.nt-scroll-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  animation: scroll 45s linear infinite !important;
+  will-change: transform !important;
+  width: max-content !important;
+}
+
+.nt-container:hover .nt-scroll-wrapper {
+  animation-play-state: paused !important;
+}
+
+.nt-track {
+  display: flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+.nt-item {
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 45px !important;
+  height: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  white-space: nowrap !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+  min-width: fit-content !important;
+}
+
+.nt-time {
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  color: #ea580c !important;
+  /* Made the text highly readable orange */
+  margin-right: 0.5rem !important;
+  white-space: nowrap !important;
+}
+
+.nt-title {
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #374151 !important;
+  white-space: nowrap !important;
+  transition: color 0.2s !important;
+}
+
+.nt-item:hover .nt-title {
+  color: #f97316 !important;
+}
+
+.nt-divider {
+  margin: 0 1rem !important;
+  color: rgba(249, 115, 22, 0.3) !important;
+  font-size: 0.75rem !important;
+  white-space: nowrap !important;
+}
+
+.nt-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+}
+
+.nt-modal-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.nt-modal-content {
+  background-color: #ffffff !important;
+  border-radius: 1.5rem !important;
+  max-width: 42rem !important;
+  width: 100% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  z-index: 1010 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  padding: 2rem !important;
+}
+
+.nt-modal-close {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 9999px !important;
+  background-color: #f3f4f6 !important;
+  color: #6b7280 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+
+.nt-modal-close:hover {
+  background-color: #fee2e2 !important;
+  color: #ef4444 !important;
+}
+
+.nt-modal-meta {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.nt-modal-source {
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  color: #6b7280 !important;
+  background-color: #f3f4f6 !important;
+  padding: 0.375rem 0.75rem !important;
+  border-radius: 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.nt-modal-date {
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  color: #9ca3af !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important;
+}
+
+.nt-modal-title {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  color: #1f2937 !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.25 !important;
+}
+
+.nt-modal-body {
+  color: #4b5563 !important;
+  margin-bottom: 2rem !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+.nt-modal-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  border-top: 1px solid #f3f4f6 !important;
+  padding-top: 1.5rem !important;
+}
+
+.nt-modal-btn {
+  padding: 0.75rem 1.5rem !important;
+  background-color: #f97316 !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  border-radius: 0.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  text-decoration: none !important;
+  transition: all 0.2s !important;
+  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.2) !important;
+}
+
+.nt-modal-btn:hover {
+  background-color: #ea580c !important;
+  transform: translateY(-2px) !important;
+}
