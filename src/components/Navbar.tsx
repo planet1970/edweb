@@ -127,6 +127,11 @@ const Navbar: React.FC = () => {
                         <div className="nav-actions">
                             <WeatherWidget />
 
+                            {/* Theme Toggle Button - Visible on all devices except small mobile (where it's in menu) */}
+                            <button className="theme-toggle hide-mobile" onClick={toggleTheme} aria-label="Temayı Değiştir">
+                                <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
+                            </button>
+
                             {/* Desktop/Tablet kullanıcı dropdown - 768px üzerinde görünür */}
                             {visitorName && (
                                 <div className="user-dropdown hide-mobile" ref={userMenuRef}>
@@ -155,9 +160,8 @@ const Navbar: React.FC = () => {
                                             <i className="fas fa-envelope"></i> Mesajlarım
                                         </div>
                                         <div className="dropdown-divider"></div>
-                                        <div className="dropdown-item" onClick={toggleTheme}>
-                                            <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
-                                            {theme === 'dark' ? 'Aydınlık Mod' : 'Karanlık Mod'}
+                                        <div className="dropdown-item logout" onClick={() => { visitorService.logout(); window.location.reload(); }}>
+                                            <i className="fas fa-sign-out-alt"></i> Çıkış Yap
                                         </div>
                                     </div>
                                 </div>

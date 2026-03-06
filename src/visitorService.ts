@@ -84,5 +84,15 @@ export const visitorService = {
 
     setUserImage(url: string) {
         localStorage.setItem('edn_user_image', url);
+    },
+
+    logout() {
+        localStorage.removeItem('edn_visitor_name');
+        localStorage.removeItem('edn_user_full_name');
+        localStorage.removeItem('edn_user_image');
+        localStorage.removeItem('edn_user_email');
+        localStorage.removeItem('edn_visit_count');
+        localStorage.removeItem('edn_visitor_id');
+        window.dispatchEvent(new CustomEvent('visitorUpdated', { detail: null }));
     }
 };

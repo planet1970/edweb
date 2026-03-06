@@ -11,11 +11,45 @@ const AdPopup: React.FC = () => {
             try {
                 const response = await api.get('/web-home/ads/popup/active');
                 if (response.data && response.data.imageUrl) {
-                    setAdData(response.data);
+                    const ad = response.data;
+                    const idPrefix = ad.isDefault ? 'def_' : '';
+                    const adId = ad.id;
 
-                    const hasSeenPopup = sessionStorage.getItem('hasSeenAdPopup');
-                    if (!hasSeenPopup) {
-                        // Show popup with a slight delay after page load
+                    setAdData(ad);
+
+                    const hasSeenPopupSession = sessionStorage.getItem(`hasSeenAdPopup_${idPrefix}${adId}`);
+                    const lastSeenDay = localStorage.getItem(`lastSeenAdPopup_${idPrefix}${adId}`);
+                    const lastSeenHour = localStorage.getItem(`lastSeenAdPopup_hour_${idPrefix}${adId}`);
+                    const today = new Date().toDateString();
+                    const now = new Date().getTime();
+
+                    let shouldShow = false;
+
+                    // Stratejiye göre kontrol et
+                    if (ad.displayStrategy === 'ONCE_PER_SESSION') {
+                        shouldShow = !hasSeenPopupSession;
+                    } else if (ad.displayStrategy === 'ONCE_PER_HOUR') {
+                        if (!lastSeenHour) {
+                            shouldShow = true;
+                        } else {
+                            const lastTime = parseInt(lastSeenHour, 10);
+                            const oneHour = 60 * 60 * 1000;
+                            shouldShow = (now - lastTime) > oneHour;
+                        }
+                    } else if (ad.displayStrategy === 'ONCE_PER_DAY') {
+                        shouldShow = lastSeenDay !== today;
+                    } else {
+                        // Varsayılan: Saatte bir
+                        if (!lastSeenHour) {
+                            shouldShow = true;
+                        } else {
+                            const lastTime = parseInt(lastSeenHour, 10);
+                            const oneHour = 60 * 60 * 1000;
+                            shouldShow = (now - lastTime) > oneHour;
+                        }
+                    }
+
+                    if (shouldShow) {
                         setTimeout(() => {
                             setIsVisible(true);
                         }, 1500);
@@ -31,12 +65,23 @@ const AdPopup: React.FC = () => {
 
     const closePopup = async () => {
         setIsVisible(false);
-        sessionStorage.setItem('hasSeenAdPopup', 'true');
+        if (adData) {
+            const idPrefix = adData.isDefault ? 'def_' : '';
+            sessionStorage.setItem(`hasSeenAdPopup_${idPrefix}${adData.id}`, 'true');
 
-        // Gösterim sayısını artır
-        if (adData && adData.id) {
+            // Günlük gösterim takibi için local storage'a kaydet
+            localStorage.setItem(`lastSeenAdPopup_${idPrefix}${adData.id}`, new Date().toDateString());
+            localStorage.setItem(`lastSeenAdPopup_hour_${idPrefix}${adData.id}`, new Date().getTime().toString());
+
             try {
-                await api.patch(`/web-home/ads/popup/${adData.id}/view`, {});
+                // Default popup'ın kendine has bir increment endpoint'i yoksa GENEL bi yer yapabiliriz 
+                // ya da backend'de tek endpoint yapabiliriz. Şu an backend'de Default için viewCount var ama endpoint eklemedim galiba.
+                if (!adData.isDefault) {
+                    await api.patch(`/web-home/ads/popup/${adData.id}/view`, {});
+                } else {
+                    // Default view count endpoint?
+                    // await api.patch(`/web-home/ads/popup-default/view`, {});
+                }
             } catch (error) {
                 console.error("View count increment failed:", error);
             }

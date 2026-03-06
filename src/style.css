@@ -204,7 +204,7 @@ ul {
     background: var(--navbar-scrolled);
     box-shadow: var(--shadow-md);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .navbar {
@@ -1429,7 +1429,7 @@ section {
 }
 
 .testimonial-card {
-    background: var(--white);
+    background: var(--card-bg);
     padding: 50px;
     border-radius: 15px;
     box-shadow: var(--shadow-md);
