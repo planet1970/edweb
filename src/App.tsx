@@ -10,6 +10,7 @@ import Place from './pages/Place';
 import FoodPlace from './pages/FoodPlace';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import Maintenance from './pages/Maintenance';
 import { visitorService } from './visitorService';
 import { Toaster } from 'react-hot-toast';
 import NotificationToast from './components/NotificationToast';
@@ -20,15 +21,18 @@ const AppContent: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
+    console.log("Current Path:", location.pathname);
     // Visitor Tracking
-    visitorService.trackVisitor();
+    visitorService.trackVisitor().catch(err => {
+      console.error("Visitor Tracking Error:", err);
+    });
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     // Init/Refresh AOS on route change
@@ -96,6 +100,7 @@ const AppContent: React.FC = () => {
           <Route path="/detail/food_place/:id" element={<FoodPlace />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/maintenance" element={<Maintenance />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
