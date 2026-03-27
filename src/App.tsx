@@ -11,6 +11,9 @@ import FoodPlace from './pages/FoodPlace';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Maintenance from './pages/Maintenance';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import CookiePolicy from './pages/CookiePolicy';
 import { visitorService } from './visitorService';
 import { Toaster } from 'react-hot-toast';
 import NotificationToast from './components/NotificationToast';
@@ -101,6 +104,9 @@ const AppContent: React.FC = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/maintenance" element={<Maintenance />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { api, getImageUrl } from '../api';
 import type { WebSocialInfo } from '../types';
 
@@ -99,9 +100,9 @@ const Footer: React.FC = () => {
                 <div className="footer-bottom">
                     <p>&copy; {new Date().getFullYear()} {footerData?.title || 'Edirne Rehberi'}. Tüm hakları saklıdır.</p>
                     <div className="footer-links">
-                        <a href="#">Gizlilik Politikası</a>
-                        <a href="#">Kullanım Şartları</a>
-                        <a href="#">Çerez Politikası</a>
+                        <Link to="/privacy-policy">Gizlilik Politikası</Link>
+                        <Link to="/terms-of-service">Kullanım Şartları</Link>
+                        <Link to="/cookie-policy">Çerez Politikası</Link>
                     </div>
                 </div>
             </div>

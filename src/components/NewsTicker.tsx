@@ -46,7 +46,13 @@ const NewsTicker: React.FC = () => {
                                         {new Date(item.pubDate).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                                     </span>
                                     <span className="nt-title">
-                                        {item.title.split(' - ')[0] || item.title}
+                                        {(() => {
+                                            const lastDashIndex = item.title.lastIndexOf(' - ');
+                                            if (lastDashIndex === -1) return item.title;
+                                            const title = item.title.substring(0, lastDashIndex);
+                                            const source = item.title.substring(lastDashIndex + 3);
+                                            return `${title} (${source})`;
+                                        })()}
                                     </span>
                                     <span className="nt-divider">|</span>
                                 </div>

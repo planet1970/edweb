@@ -2261,16 +2261,25 @@ section {
 /* Forecast Dropdown */
 .weather-forecast-dropdown {
     position: absolute;
-    top: calc(100% + 15px);
+    top: 100%;
     right: 0;
+    background: transparent;
+    padding-top: 15px;
+    width: 280px;
+    z-index: 1000;
+}
+
+.weather-forecast-dropdown > * {
+    background: var(--card-bg);
+}
+
+.weather-forecast-inner {
     background: var(--card-bg);
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
     padding: 20px;
-    width: 280px;
-    z-index: 1000;
-    animation: fadeInDown 0.3s ease-out;
     border: 1px solid var(--border-color);
+    animation: fadeInDown 0.3s ease-out;
 }
 
 .weather-forecast-dropdown h4 {
@@ -2315,6 +2324,27 @@ section {
 .forecast-temps .min {
     opacity: 0.5;
     font-weight: 400;
+}
+
+.weather-source {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: right;
+    opacity: 0.7;
+}
+
+.weather-source a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.weather-source a:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
 
 @keyframes fadeInDown {

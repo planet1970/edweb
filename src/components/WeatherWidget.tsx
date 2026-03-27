@@ -108,18 +108,23 @@ const WeatherWidget: React.FC = () => {
 
             {showForecast && (
                 <div className="weather-forecast-dropdown">
-                    <h4>5 Günlük Tahmin</h4>
-                    <div className="forecast-list">
-                        {weather.forecast.map((day, index) => (
-                            <div key={index} className="forecast-item">
-                                <span className="forecast-day">{day.date}</span>
-                                <i className={`fas ${day.icon}`}></i>
-                                <div className="forecast-temps">
-                                    <span className="max">{day.maxTemp}°</span>
-                                    <span className="min">{day.minTemp}°</span>
+                    <div className="weather-forecast-inner">
+                        <h4>5 Günlük Tahmin</h4>
+                        <div className="forecast-list">
+                            {weather.forecast.map((day, index) => (
+                                <div key={index} className="forecast-item">
+                                    <span className="forecast-day">{day.date}</span>
+                                    <i className={`fas ${day.icon}`}></i>
+                                    <div className="forecast-temps">
+                                        <span className="max">{day.maxTemp}°</span>
+                                        <span className="min">{day.minTemp}°</span>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                        <div className="weather-source">
+                            Kaynak: <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">open-meteo.com</a>
+                        </div>
                     </div>
                 </div>
             )}
