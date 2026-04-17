@@ -54,12 +54,49 @@ const Place: React.FC = () => {
         );
     }
 
+    const getFontAwesomeIcon = (lucideIcon: string) => {
+        if (!lucideIcon) return 'info-circle';
+        
+        const mapping: Record<string, string> = {
+            'AlertCircle': 'exclamation-circle',
+            'AlertTriangle': 'exclamation-triangle',
+            'HelpCircle': 'question-circle',
+            'Info': 'info-circle',
+            'MessageCircle': 'comment',
+            'Settings': 'cog',
+            'UserPlus': 'user-plus',
+            'Users': 'users',
+            'DollarSign': 'dollar-sign',
+            'Mail': 'envelope',
+            'Trash': 'trash-alt',
+            'Edit': 'edit',
+            'Search': 'search',
+            'ExternalLink': 'external-link-alt',
+            'Smartphone': 'mobile-alt',
+            'Tv': 'tv',
+            'CreditCard': 'credit-card',
+            'Briefcase': 'briefcase',
+            'Activity': 'pulse',
+            'Zap': 'bolt',
+            'MapPin': 'map-marker-alt',
+            'Clock': 'clock',
+            'Building': 'building',
+            'Gift': 'gift'
+        };
+
+        if (mapping[lucideIcon]) return mapping[lucideIcon];
+
+        return lucideIcon
+            .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+            .toLowerCase();
+    };
+
     const cardStyle = { color: '#FFF8F0', borderColor: '#FFE4CC', textColor: '#1A1A2E', iconColor: '#FF6B35' };
     const infoCards = [
-        { icon: 'exclamation-triangle', title: place.title1, info: place.info1, ...cardStyle },
-        { icon: 'info-circle', title: place.title2, info: place.info2, ...cardStyle },
-        { icon: 'clock', title: place.title3, info: place.info3, ...cardStyle },
-        { icon: 'building', title: place.title4, info: place.info4, ...cardStyle },
+        { icon: getFontAwesomeIcon(place.icon1 || 'AlertTriangle'), title: place.title1, info: place.info1, ...cardStyle },
+        { icon: getFontAwesomeIcon(place.icon2 || 'Info'), title: place.title2, info: place.info2, ...cardStyle },
+        { icon: getFontAwesomeIcon(place.icon3 || 'Clock'), title: place.title3, info: place.info3, ...cardStyle },
+        { icon: getFontAwesomeIcon(place.icon4 || 'Building'), title: place.title4, info: place.info4, ...cardStyle },
     ].filter(card => card.title && card.info);
 
     const areas = [
@@ -71,23 +108,30 @@ const Place: React.FC = () => {
         <div className="place-detail-page" style={{ background: '#fff', minHeight: '100vh' }}>
             {/* Hero Section */}
             <header style={{
-                height: '70vh',
                 position: 'relative',
-                overflow: 'hidden',
+                minHeight: '75vh',
+                display: 'flex',
                 background: '#1a1a1a'
             }}>
                 <img
                     src={place.back_pic_url ? getImageUrl(place.back_pic_url) : '/images/placeholder.jpg'}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 }}
+                    style={{ 
+                        position: 'absolute',
+                        top: 0, left: 0, 
+                        width: '100%', height: '100%', 
+                        objectFit: 'cover', opacity: 0.7,
+                        zIndex: 1
+                    }}
                     alt={place.title}
                 />
                 <div style={{
-                    position: 'absolute',
-                    top: 0, left: 0, width: '100%', height: '100%',
+                    position: 'relative',
+                    zIndex: 2,
+                    width: '100%',
                     background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8) 100%)',
                     display: 'flex',
                     alignItems: 'flex-end',
-                    padding: '0 0 80px 0'
+                    padding: '120px 0 80px 0'
                 }}>
                     <div className="container" data-aos="fade-up">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
@@ -245,9 +289,17 @@ const Place: React.FC = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                                     {areas.map((area, idx) => (
                                         <div key={idx} style={{
-                                            padding: '20px', background: '#f8f9fa', borderRadius: '12px', border: '1px solid #eee'
+                                            padding: '18px 25px', 
+                                            background: '#f8f9fa', 
+                                            borderRadius: '12px', 
+                                            border: '1px solid #eee',
+                                            display: 'flex',
+                                            alignItems: 'flex-start',
+                                            gap: '15.5px',
+                                            transition: 'transform 0.2s ease'
                                         }}>
-                                            {area}
+                                            <i className="fas fa-chevron-right" style={{ color: '#FF6B35', marginTop: '6px', fontSize: '14px' }}></i>
+                                            <span style={{ fontSize: '17.5px', lineHeight: '1.7', color: '#333' }}>{area}</span>
                                         </div>
                                     ))}
                                 </div>

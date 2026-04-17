@@ -73,10 +73,10 @@ const FoodPlace: React.FC = () => {
         <div className="food-detail-page" style={{ background: '#fff', minHeight: '100vh' }}>
             {/* Hero Section */}
             <header style={{
-                height: '60vh',
                 position: 'relative',
-                background: '#000',
-                overflow: 'hidden'
+                minHeight: '65vh', // Slightly smaller for food but still robust
+                display: 'flex',
+                background: '#000'
             }}>
                 <img
                     src={
@@ -86,13 +86,23 @@ const FoodPlace: React.FC = () => {
                                 ? getImageUrl(place.imageUrl)
                                 : '/images/placeholder.jpg'
                     }
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+                    style={{ 
+                        position: 'absolute',
+                        top: 0, left: 0, 
+                        width: '100%', height: '100%', 
+                        objectFit: 'cover', opacity: 0.8,
+                        zIndex: 1
+                    }}
                     alt={place.title}
                 />
                 <div style={{
-                    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                    position: 'relative',
+                    zIndex: 2,
+                    width: '100%',
                     background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.9))',
-                    display: 'flex', alignItems: 'flex-end', paddingBottom: '60px'
+                    display: 'flex', 
+                    alignItems: 'flex-end', 
+                    padding: '120px 0 60px 0'
                 }}>
                     <div className="container" data-aos="fade-up">
                         <div style={{

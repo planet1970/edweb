@@ -125,7 +125,11 @@ const PopularPlaces: React.FC = () => {
                                         )}
                                     </div>
                                     <h3 className="text-gray-900" style={{ fontSize: '22px', marginBottom: '10px', fontWeight: 'bold' }}>{place.title}</h3>
-                                    <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>{place.description}</p>
+                                    <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
+                                        {place.description && place.description.length > 120 
+                                            ? `${place.description.substring(0, 120)}...` 
+                                            : place.description}
+                                    </p>
                                 </div>
                             </>
                         );
