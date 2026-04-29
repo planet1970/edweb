@@ -57,6 +57,12 @@ const Place: React.FC = () => {
     const getFontAwesomeIcon = (lucideIcon: string) => {
         if (!lucideIcon) return 'info-circle';
         
+        // Handle full FontAwesome classes or prefixed names
+        if (lucideIcon.startsWith('fa')) {
+            // Remove fas fa- if present because it will be added back
+            return lucideIcon.replace('fas fa-', '').replace('fa-solid fa-', '').replace('fa-', '');
+        }
+
         const mapping: Record<string, string> = {
             'AlertCircle': 'exclamation-circle',
             'AlertTriangle': 'exclamation-triangle',
@@ -81,7 +87,15 @@ const Place: React.FC = () => {
             'MapPin': 'map-marker-alt',
             'Clock': 'clock',
             'Building': 'building',
-            'Gift': 'gift'
+            'Gift': 'gift',
+            'Star': 'star',
+            'Heart': 'heart',
+            'Camera': 'camera',
+            'Utensils': 'utensils',
+            'Coffee': 'coffee',
+            'Home': 'home',
+            'Calendar': 'calendar',
+            'Shield': 'shield-halved'
         };
 
         if (mapping[lucideIcon]) return mapping[lucideIcon];

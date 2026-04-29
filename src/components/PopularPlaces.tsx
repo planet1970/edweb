@@ -19,6 +19,7 @@ interface PopularPlaceAd {
     info2?: string;
     mainCategory?: string;
     category?: string;
+    slogan?: string;
     isActive: boolean;
 }
 
@@ -109,6 +110,7 @@ const PopularPlaces: React.FC = () => {
                                     <img src={place.imageUrl.startsWith('/images') ? place.imageUrl : getImageUrl(place.imageUrl)} alt={place.title} />
                                     <div className="card-badges">
                                         <span className="badge-featured">{place.mainCategory || place.badge || 'Mekan'}</span>
+                                        {place.slogan && <span className="badge-promo">{place.slogan}</span>}
                                     </div>
                                     <div className="card-overlay">
                                         <span className="btn btn-outline-white">İncele</span>
@@ -126,8 +128,8 @@ const PopularPlaces: React.FC = () => {
                                     </div>
                                     <h3 className="text-gray-900" style={{ fontSize: '22px', marginBottom: '10px', fontWeight: 'bold' }}>{place.title}</h3>
                                     <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: '1.6' }}>
-                                        {place.description && place.description.length > 120 
-                                            ? `${place.description.substring(0, 120)}...` 
+                                        {place.description && place.description.length > 120
+                                            ? `${place.description.substring(0, 120)}...`
                                             : place.description}
                                     </p>
                                 </div>
@@ -154,9 +156,6 @@ const PopularPlaces: React.FC = () => {
                     })}
                 </div>
 
-                <div className="text-center">
-                    <a href="#" className="btn btn-primary btn-lg">Tüm Mekanları Görüntüle</a>
-                </div>
             </div>
         </section>
     );

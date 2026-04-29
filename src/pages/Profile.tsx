@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { visitorService } from '../visitorService';
 import { api, getImageUrl } from '../api';
 import { toast } from 'react-hot-toast';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 const Profile: React.FC = () => {
     const [loading, setLoading] = useState(false);
@@ -33,7 +35,7 @@ const Profile: React.FC = () => {
                 if (response.data) {
                     setProfile({
                         name: response.data.name || '',
-                        username: response.data.username || '',
+                        username: (response.data.username && !response.data.username.startsWith('EDN-')) ? response.data.username : '',
                         email: response.data.email || '',
                         password: '', // Don't load password
                         phone: response.data.phone || '',
@@ -117,6 +119,52 @@ const Profile: React.FC = () => {
         }
     };
 
+    const handleGoogleSuccess = async (credentialResponse: any) => {
+        if (!credentialResponse.credential) return;
+        
+        try {
+            setLoading(true);
+            const decoded: any = jwtDecode(credentialResponse.credential);
+            const fingerprint = visitorService.getVisitorId();
+
+            // Prepare upgrade data from Google profile
+            const formData = new FormData();
+            formData.append('email', decoded.email);
+            formData.append('name', decoded.name);
+            formData.append('username', decoded.email.split('@')[0]); // Use email prefix as username
+            formData.append('visitorId', fingerprint);
+            formData.append('googleId', decoded.sub);
+            if (decoded.picture) {
+                formData.append('imageUrl', decoded.picture);
+            }
+
+            const response = await api.post('/visitors/upgrade', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            if (response.data) {
+                visitorService.setDisplayName(response.data.username);
+                visitorService.setFullName(response.data.name);
+                visitorService.setEmail(response.data.email);
+                if (response.data.imageUrl) {
+                    visitorService.setUserImage(response.data.imageUrl);
+                }
+                
+                toast.success('Google ile giriş başarılı!');
+                setTimeout(() => {
+                    navigate('/');
+                    window.location.reload();
+                }, 1000);
+            }
+        } catch (error: any) {
+            console.error("Google upgrade failed", error);
+            const errorMsg = error.response?.data?.message || 'Google ile kayıt sırasında bir hata oluştu.';
+            toast.error(errorMsg);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const isRegistered = originalUsername && !originalUsername.startsWith('EDN-');
 
     return (
@@ -131,6 +179,21 @@ const Profile: React.FC = () => {
                                 <div className="profile-login-box">
                                     <span>Zaten bir hesabınız var mı?</span>
                                     <Link to="/login" className="login-link-btn">Giriş Yap</Link>
+                                </div>
+                                
+                                <div className="google-auth-separator">
+                                    <span>veya</span>
+                                </div>
+                                
+                                <div className="google-login-wrapper">
+                                    <GoogleLogin 
+                                        onSuccess={handleGoogleSuccess}
+                                        onError={() => toast.error('Google girişi başarısız oldu.')}
+                                        useOneTap
+                                        theme="filled_blue"
+                                        shape="pill"
+                                        text="signup_with"
+                                    />
                                 </div>
                             </>
                         )}

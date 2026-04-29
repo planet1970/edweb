@@ -35,7 +35,7 @@ const FeaturedBusinesses: React.FC = () => {
                 <div className="section-header">
                     <span className="section-subtitle">ÖNE ÇIKANLAR</span>
                     <h2 className="section-title">Şehrin Seçkin Mekanları</h2>
-                    <p className="section-desc">Edirne Rehberi kullanıcılarına özel avantajlar sunan, şehrin en sevilen noktaları.</p>
+                    <p className="section-desc">Edirne Rehberi kullanıcılarına özel, şehrin en sevilen noktaları.</p>
                 </div>
 
                 <div className="featured-grid">
@@ -49,7 +49,9 @@ const FeaturedBusinesses: React.FC = () => {
                                     <img src={getImageUrl(item.imageUrl)} alt={item.title} />
                                     <div className="card-badges">
                                         <span className="badge-featured">{item.mainCategory || item.category || 'Mekan'}</span>
-                                        {item.discount && <span className="badge-promo">{item.discount}</span>}
+                                        {(item.slogan || item.discount) && (
+                                            <span className="badge-promo">{item.slogan || item.discount}</span>
+                                        )}
                                     </div>
                                     <div className="card-overlay">
                                         <span className="btn btn-outline-white">İncele</span>

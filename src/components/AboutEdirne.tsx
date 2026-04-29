@@ -63,34 +63,46 @@ const AboutEdirne: React.FC = () => {
 
     const getIconClass = (iconName: string) => {
         if (!iconName) return 'fas fa-info-circle';
+        
+        // Handle full FontAwesome classes
         if (iconName.startsWith('fa')) return iconName;
+        if (iconName.includes('fas fa-')) return iconName;
 
-        // Basic mapping for common Lucide icons to FontAwesome
+        // Map Lucide icons to FontAwesome
         const map: { [key: string]: string } = {
-            'Landmark': 'fas fa-landmark',
-            'Mosque': 'fas fa-mosque',
-            'Star': 'fas fa-star',
-            'Crown': 'fas fa-crown',
-            'Trophy': 'fas fa-trophy',
-            'History': 'fas fa-history',
-            'MapPin': 'fas fa-map-marker-alt',
-            'Info': 'fas fa-info-circle',
-            'Heart': 'fas fa-heart',
-            'Camera': 'fas fa-camera',
-            'Utensils': 'fas fa-utensils',
-            'Coffee': 'fas fa-coffee',
-            'Settings': 'fas fa-cog',
-            'Search': 'fas fa-search',
-            'User': 'fas fa-user',
-            'Bell': 'fas fa-bell',
-            'Home': 'fas fa-home',
-            'Calendar': 'fas fa-calendar',
-            'Mail': 'fas fa-envelope',
-            'Phone': 'fas fa-phone'
+            'Landmark': 'landmark',
+            'Mosque': 'mosque',
+            'Star': 'star',
+            'Crown': 'crown',
+            'Trophy': 'trophy',
+            'History': 'history',
+            'MapPin': 'map-marker-alt',
+            'Info': 'info-circle',
+            'Heart': 'heart',
+            'Camera': 'camera',
+            'Utensils': 'utensils',
+            'Coffee': 'coffee',
+            'Settings': 'cog',
+            'Search': 'search',
+            'User': 'user',
+            'Bell': 'bell',
+            'Home': 'home',
+            'Calendar': 'calendar',
+            'Mail': 'envelope',
+            'Phone': 'phone',
+            'Shield': 'shield-halved',
+            'Users': 'users',
+            'Clock': 'clock',
+            'Building': 'building',
+            'ShoppingBag': 'shopping-bag',
+            'Dumbbell': 'dumbbell',
+            'Zap': 'bolt',
+            'HelpCircle': 'question-circle',
+            'CheckCircle': 'check-circle'
         };
 
-        const faName = map[iconName] || `fas fa-${iconName.toLowerCase().replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}`;
-        return faName;
+        const faIcon = map[iconName] || iconName.toLowerCase().replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        return `fas fa-${faIcon}`;
     };
 
     return (

@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string)?.replace(/\/api\/v1\/?$/, '') || 'https://api.edirnego.com';
+export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string)?.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '') || 'https://api.edirnego.com';
 export const API_URL = `${API_BASE_URL}/api/v1`;
 
 export const api = axios.create({
@@ -33,8 +33,26 @@ api.interceptors.response.use(
     }
 );
 
+// Yerel geliştirmede prod resimlerini görmek isterseniz true yapabilirsiniz
+const USE_PROD_IMAGES_LOCALLY = true;
+
 export const getImageUrl = (url?: string) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    return `${API_BASE_URL}${url}`;
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  
+  const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+  
+  // Yerelde çalışırken yerel backend'deki resimleri görmek istiyoruz
+  if (window.location.hostname === 'localhost' && cleanUrl.startsWith('/uploads')) {
+    // Profil resimleri yerelde olabilir, onları yerel backendden çekmeyi dene
+    if (cleanUrl.includes('/profiles/')) {
+      return `${API_BASE_URL}${cleanUrl}`;
+    }
+    // Diğerleri (mekanlar vb) için prod'dan çekmek daha güvenli (yerelde eksik olabilir)
+    // Eğer bunları da yerelden çekmek isterseniz üstteki profiller gibi yapabilirsiniz
+    return `https://api.edirnego.com${cleanUrl}`;
+  }
+  
+  // Backend statik dosyaları artık /uploads üzerinden sunuyor (api/v1 prefixi olmadan)
+  return `${API_BASE_URL}${cleanUrl}`;
 };

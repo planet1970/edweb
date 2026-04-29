@@ -15,6 +15,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CookiePolicy from './pages/CookiePolicy';
 import { visitorService } from './visitorService';
+import { api } from './api';
 import { Toaster } from 'react-hot-toast';
 import NotificationToast from './components/NotificationToast';
 import './style.css';
@@ -29,6 +30,39 @@ const AppContent: React.FC = () => {
     visitorService.trackVisitor().catch(err => {
       console.error("Visitor Tracking Error:", err);
     });
+
+    // Daily Visit Tracking (Web)
+    const hasTrackedVisit = sessionStorage.getItem('hasTrackedVisit');
+    if (!hasTrackedVisit) {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      // Tekil Ziyaretçi Kontrolü (Günde 1 kere)
+      const lastUniqueVisit = localStorage.getItem('lastUniqueVisit');
+      const todayStr = new Date().toLocaleDateString('tr-TR', { timeZone: 'Europe/Istanbul' });
+      const isUnique = lastUniqueVisit !== todayStr;
+
+      // Gelişmiş Arama Motoru Tespiti
+      const referrer = document.referrer.toLowerCase();
+      const searchEngines = ['google.', 'bing.', 'yandex.', 'yahoo.', 'duckduckgo.', 'baidu.'];
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source')?.toLowerCase() || '';
+      
+      const isSearch = searchEngines.some(se => referrer.includes(se)) || 
+                       ['google', 'bing', 'yandex', 'yahoo'].includes(utmSource);
+
+      api.post('/stats/visit', { 
+        platform: isMobile ? 'mobile' : 'web',
+        isUnique: isUnique,
+        isSearch: isSearch
+      })
+        .then(() => {
+          sessionStorage.setItem('hasTrackedVisit', 'true');
+          if (isUnique) {
+            localStorage.setItem('lastUniqueVisit', todayStr);
+          }
+        })
+        .catch(err => console.error("Daily Visit Tracking Error:", err));
+    }
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 300);

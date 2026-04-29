@@ -154,7 +154,7 @@ const Navbar: React.FC = () => {
                                             {visitorEmail && <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>{visitorEmail}</div>}
                                         </div>
                                         <Link to="/profile" className="dropdown-item" onClick={() => setIsUserMenuOpen(false)}>
-                                            <i className="fas fa-user-cog"></i> Profilim
+                                            <i className="fas fa-user-cog"></i> {visitorName && visitorName.startsWith('EDN-') ? 'Kayıt Ol' : 'Profilim'}
                                         </Link>
                                         <div className="dropdown-item" onClick={() => { setIsUserMenuOpen(false); alert('Mesajlarınız yakında burada olacak!'); }}>
                                             <i className="fas fa-envelope"></i> Mesajlarım
@@ -241,7 +241,7 @@ const Navbar: React.FC = () => {
                             <li>
                                 <Link to="/profile" className="mobile-nav-link" onClick={closeMenu}>
                                     <span className="mobile-nav-icon"><i className="fas fa-user-cog"></i></span>
-                                    Profilim
+                                    {visitorName && visitorName.startsWith('EDN-') ? 'Kayıt Ol' : 'Profilim'}
                                 </Link>
                             </li>
                             <li>
