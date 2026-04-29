@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} {footerData?.title || 'Edirne Rehberi'}. Tüm hakları saklıdır.</p>
+                    <p>&copy; {new Date().getFullYear()} {footerData?.title || 'Edirne Rehberi'} v1.1.0. Tüm hakları saklıdır.</p>
                     <div className="footer-links">
                         <Link to="/privacy-policy">Gizlilik Politikası</Link>
                         <Link to="/terms-of-service">Kullanım Şartları</Link>
